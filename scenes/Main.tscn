@@ -1,0 +1,84 @@
+[gd_scene load_steps=16 format=2]
+
+[ext_resource path="res://scripts/Main.gd" type="Script" id=1]
+[ext_resource path="res://scenes/Coin.tscn" type="PackedScene" id=2]
+[ext_resource path="res://scenes/Cactus.tscn" type="PackedScene" id=3]
+[ext_resource path="res://scenes/Powerup.tscn" type="PackedScene" id=4]
+[ext_resource path="res://scenes/Clock.tscn" type="PackedScene" id=5]
+[ext_resource path="res://assets/wood.png" type="Texture" id=6]
+[ext_resource path="res://scenes/SpawnContainer.tscn" type="PackedScene" id=7]
+[ext_resource path="res://scenes/HUD.tscn" type="PackedScene" id=8]
+[ext_resource path="res://scenes/Pirate.tscn" type="PackedScene" id=9]
+[ext_resource path="res://assets/audio/Coin3.wav" type="AudioStream" id=10]
+[ext_resource path="res://assets/audio/Crane Dance.wav" type="AudioStream" id=11]
+[ext_resource path="res://assets/audio/Level.wav" type="AudioStream" id=12]
+[ext_resource path="res://assets/audio/Hit.wav" type="AudioStream" id=13]
+[ext_resource path="res://assets/audio/gulp.wav" type="AudioStream" id=14]
+[ext_resource path="res://assets/audio/clock.wav" type="AudioStream" id=15]
+
+[node name="Main" type="Node"]
+script = ExtResource( 1 )
+Coin = ExtResource( 2 )
+Obstacle = ExtResource( 3 )
+Powerup = ExtResource( 4 )
+Clock = ExtResource( 5 )
+playtime = 30
+
+[node name="Background" type="TextureRect" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+texture = ExtResource( 6 )
+stretch_mode = 2
+
+[node name="SpawnContainer" parent="." instance=ExtResource( 7 )]
+
+[node name="CoinContainer" type="Node" parent="."]
+
+[node name="ObstacleContainer" type="Node" parent="."]
+
+[node name="PowerupContainer" type="Node" parent="."]
+
+[node name="ClockContainer" type="Node" parent="."]
+
+[node name="HUD" parent="." instance=ExtResource( 8 )]
+
+[node name="Player" parent="." instance=ExtResource( 9 )]
+
+[node name="GameTimer" type="Timer" parent="."]
+
+[node name="PowerupTimer" type="Timer" parent="."]
+one_shot = true
+
+[node name="SpeedTimer" type="Timer" parent="."]
+wait_time = 5.0
+one_shot = true
+
+[node name="PlayerStart" type="Position2D" parent="."]
+position = Vector2( 240, 350 )
+
+[node name="CoinSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 10 )
+
+[node name="GameMusic" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 11 )
+volume_db = 1.0
+
+[node name="LevelSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 12 )
+
+[node name="EndSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 13 )
+
+[node name="PowerupSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 14 )
+
+[node name="ClockSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 15 )
+pitch_scale = 5.0
+[connection signal="start_game" from="HUD" to="." method="new_game"]
+[connection signal="hurt" from="Player" to="." method="_on_Player_hurt"]
+[connection signal="pickup" from="Player" to="." method="_on_Player_pickup"]
+[connection signal="timeout" from="GameTimer" to="." method="_on_GameTimer_timeout"]
+[connection signal="timeout" from="PowerupTimer" to="." method="_on_PoweupTimer_timeout"]
+[connection signal="timeout" from="SpeedTimer" to="." method="_on_SpeedTimer_timeout"]
+[connection signal="finished" from="GameMusic" to="." method="_on_GameMusic_finished"]

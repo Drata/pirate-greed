@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/Coin3.wav-003f7b0369e7fbc5511c0eb23ea47774.sample"
+
+[deps]
+
+source_file="res://assets/audio/Coin3.wav"
+dest_files=[ "res://.import/Coin3.wav-003f7b0369e7fbc5511c0eb23ea47774.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=true
+edit/normalize=true
+edit/loop=false
+compress/mode=0
