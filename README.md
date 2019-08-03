@@ -1,1 +1,1 @@
-# Coin Dash
+# Pirate Greed
